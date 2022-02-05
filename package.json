@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
+    "node-emoji": "^1.11.0",
     "stripe": "^8.202.0"
   }
 }
