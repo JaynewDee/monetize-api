@@ -68,13 +68,12 @@ app.post('/checkout', async (req, res) => {
 app.post('/webhook', async (req, res) => {
    let data;
    let eventType;
-   // Check if webhook signing is configured.
    const webhookSecret = 'whsec_f0decacced7019a20fe3b459924afef5c2a6172e646843260164f27c81a1d6c3';
  
    if (webhookSecret) {
-     // Retrieve the event by verifying the signature using the raw body and secret.
      let event;
      let signature = req.headers['stripe-signature'];
+     console.log(signature)
  
      try {
        event = stripe.webhooks.constructEvent(
@@ -86,12 +85,9 @@ app.post('/webhook', async (req, res) => {
        console.log(`⚠️  Webhook signature verification failed.`);
        return res.sendStatus(400);
      }
-     // Extract the object from the event.
      data = event.data;
      eventType = event.type;
    } else {
-     // Webhook signing is recommended, but if the secret is not configured in `config.js`,
-     // retrieve the event data directly from the request body.
      data = req.body.data;
      eventType = req.body.type;
    }
